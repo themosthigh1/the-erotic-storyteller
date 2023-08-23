@@ -10,7 +10,8 @@ export interface Book {
  price: number,
  description: string,
  details: string,
- series: string
- urlForBuy: string
+ series: string,
+ urlForBuy: string,
+ _createdAt: string
 
 }

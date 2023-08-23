@@ -3,14 +3,14 @@ import { client } from "@/sanity/lib/client"
 import Content from "./Content"
 import { Box, Container, Grid } from "@/components/GlobalWrapper"
 import { Book } from "@/app/models/book"
-import { NextPage } from "next"
 import { Key } from "react"
 import PageTitle from "@/components/PageTitle"
 
 
 const BookPage = async() => {
-  const query = `*[_type == "book"]{...}`
+  const query = `*[_type == "book"] | order(_createdAt asc){...}`
   const books: Book= await client.fetch(query)
+  console.log(books)
 
   return (
     <Box>

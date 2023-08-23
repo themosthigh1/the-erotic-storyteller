@@ -3,7 +3,6 @@
 import { urlForImage } from "@/sanity/lib/image"
 import { Box, Grid, Rating, Typography,Button, Stack, Card } from "@mui/material"
 import Image from "next/image"
-import PageTitle from "@/components/PageTitle"
 import { FC } from "react"
 import Link from "next/link"
 
@@ -24,14 +23,18 @@ const Content:FC<BookContentProps> = (props) => {
             <Grid item>
               <Card>
                 <Box sx={{ boxShadow: 2, width: '200px', height: '209px', }}>
+                  <Link href={`/book/${slug}`}>
                   <Image src={urlForImage(image).url()} alt={title} height={209} width={200}/>
+                  </Link>
                 </Box>
                 <Box my={1} mx={1} sx={{display: 'flex',justifyContent: 'space-between',
                    alignItems: 'center'
                 }}>
-                  <Typography variant="body1">{price}</Typography>
-                  <Link href={`/book/${slug}`}>
-                    <Button variant="contained" size="small">Details</Button>
+                  <Typography variant="body1">
+                    <b>{price}</b>
+                    </Typography>
+                  <Link href={urlForBuy}>
+                    <Button variant="contained" size="small">Buy</Button>
                   </Link>
                 </Box>
               </Card>
