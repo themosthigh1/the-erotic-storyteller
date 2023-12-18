@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useRouter } from "next/router";
 import { client } from "@/sanity/lib/client";
+import toast from "react-hot-toast";
 
 interface Contact {
   firstName: string;
@@ -40,7 +41,16 @@ const ContactForm: React.FC = () => {
         message: contact.message,
       });
 
-      console.log("Contact saved, added to the database", result);
+      toast.success(
+        <div className="text-center mx-4">
+          <h2>Your contact info has been saved.</h2>
+        </div>,
+        {
+          style: {
+            borderRadius: "0px",
+          },
+        }
+      );
 
       // Reset the form after successful submission
     } catch (error) {
