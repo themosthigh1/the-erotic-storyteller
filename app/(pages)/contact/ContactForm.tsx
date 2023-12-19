@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { TextField, Button, Box } from "@mui/material";
-import { useRouter } from "next/router";
+import { TextField, Button, Box, Snackbar, IconButton } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { client } from "@/sanity/lib/client";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Contact {
   firstName: string;
@@ -29,29 +30,24 @@ const ContactForm: React.FC = () => {
     }));
   };
 
+  const router = useRouter();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       // Save the contact data to Sanity
       const result = await client.create({
-        _type: "contacts", // Specify the Sanity document type
+        _type: "contact", // Specify the Sanity document type
         firstName: contact.firstName,
         lastName: contact.lastName,
         email: contact.email,
         message: contact.message,
       });
 
-      toast.success(
-        <div className="text-center mx-4">
-          <h2>Your contact info has been saved.</h2>
-        </div>,
-        {
-          style: {
-            borderRadius: "0px",
-          },
-        }
-      );
+      toast("Contact info saved successfully!");
+
+      router.push("/");
 
       // Reset the form after successful submission
     } catch (error) {
@@ -97,6 +93,7 @@ const ContactForm: React.FC = () => {
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
+          <Toaster />
         </Box>
       </Box>
     </form>
